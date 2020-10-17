@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { NOT_FOUND } = require('http-status-codes');
+const { NOT_FOUND } = require('http-status-codes').StatusCodes;
 
 const postsService = require('./post.service');
 const { ErrorHanler, catchErrors } = require('../../common/error');

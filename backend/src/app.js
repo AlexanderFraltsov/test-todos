@@ -2,6 +2,10 @@ const express = require('express');
 const swaggerUI = require('swagger-ui-express');
 const YAML = require('yamljs');
 const path = require('path');
+
+const handleNonExistentRoutes = require('./middlewares/handle-non-existent-routes');
+const { errorLoger } = require('./middlewares/error-logers');
+
 const postRouter = require('./resources/posts/post.router');
 
 const app = express();
@@ -20,5 +24,7 @@ app.use('/', (req, res, next) => {
 });
 
 app.use('/posts', postRouter);
+
+app.use(handleNonExistentRoutes, errorLoger);
 
 module.exports = app;
