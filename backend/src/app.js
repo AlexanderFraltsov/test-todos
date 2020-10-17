@@ -1,10 +1,15 @@
 const express = require('express');
-// const swaggerUI = require('swagger-ui-express');
-// const path = require('path');
+const swaggerUI = require('swagger-ui-express');
+const YAML = require('yamljs');
+const path = require('path');
+const postRouter = require('./resources/posts/post.router');
 
 const app = express();
+const swaggerDocument = YAML.load(path.join(__dirname, '../doc/api.yaml'));
 
 app.use(express.json());
+
+app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.use('/', (req, res, next) => {
   if (req.originalUrl === '/') {
@@ -13,5 +18,7 @@ app.use('/', (req, res, next) => {
   }
   next();
 });
+
+app.use('/posts', postRouter);
 
 module.exports = app;
