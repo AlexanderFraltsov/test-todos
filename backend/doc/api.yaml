@@ -1,0 +1,84 @@
+openapi: 3.0.3
+info:
+  title: Swagger Service
+  description: Swagger Service for TODOs
+  version: 1.0.0
+
+servers:
+  - url: /
+
+components:
+  schemas:
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+        text:
+          type: string
+
+paths:
+  /posts:
+    get:
+      tags:
+        - Posts
+      summary: Get all posts
+      description: Gets all posts
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Post"
+    post:
+      tags:
+        - Posts
+      summary: Create post
+      description: Creates a new post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              title: example
+              properties:
+                text:
+                  type: string
+                  description: The user's name
+              required:
+                - text
+      responses:
+        200:
+          description: The post has been created.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        400:
+          description: Bad request
+  /posts/{postId}:
+    parameters:
+      - name: postId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - Posts
+      summary: Get post by ID
+      description: Gets a post by ID
+        e.g. “/posts/123”
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+        404:
+          description: Post not found
