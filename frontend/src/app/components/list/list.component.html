@@ -1,4 +1,4 @@
-<p *ngFor="let post of posts">post.text</p>
+<p *ngFor="let post of posts$ | async">post.text</p>
 
 <input #postInput type="text" [ngClass]="{invisible:!isInput}" [formControl]="text">
 

@@ -10,12 +10,13 @@ import { IPost } from '../models/post.model';
 })
 export class BackendService {
   public posts: IPost[];
+  public postsPath = `${BACKEND_PATH}${SERVER_PATHS.POSTS}`;
 
   constructor(private http: HttpClient) { }
 
   public getPosts(): Observable<IPost[]> {
     return this.http
-      .get<IPost[]>(`${BACKEND_PATH}${SERVER_PATHS.POSTS}`)
+      .get<IPost[]>(this.postsPath)
       .pipe(
         map((res: IPost[]) => {
           this.posts = res;
@@ -26,6 +27,12 @@ export class BackendService {
           return of(this.posts);
         })
       );
+  }
+
+  public addPost(text: string): Observable<IPost> {
+    const body = { text };
+    return this.http
+      .post<IPost>(this.postsPath, body);
   }
 
   public getSwaggerAddress(): string {

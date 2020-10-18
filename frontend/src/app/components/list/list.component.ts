@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
@@ -13,13 +14,18 @@ export class ListComponent implements OnInit {
   @ViewChild('postInput')
   private input: ElementRef;
 
-  public posts: IPost[] = [];
+  public posts$: Observable<IPost[]>;
   public isInput = false;
   public text = new FormControl('');
 
   constructor(public renderer: Renderer2, public backendService: BackendService) { }
 
   ngOnInit(): void {
+    this.getPosts();
+  }
+
+  private getPosts(): void {
+    this.posts$ = this.backendService.getPosts();
   }
 
   public addPost = (): void => {
@@ -33,6 +39,7 @@ export class ListComponent implements OnInit {
       console.log('add you text');
     } else {
       console.log(value);
+      this.backendService.addPost(value);
       this.text.setValue('');
     }
   }
