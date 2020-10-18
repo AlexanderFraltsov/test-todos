@@ -1,0 +1,12 @@
+<input #postInput type="text"  [formControl]="text" [@openInput]="isInput? 'open': 'closed'">
+<button (click)="addPost()">
+  Добавить
+</button>
+<p *ngFor="let post of posts.reverse()">
+  {{post.text}}
+</p>
+<footer>
+  <a [href]="backendService.getSwaggerAddress()">
+    Link to swagger
+  </a>
+</footer>

@@ -5,6 +5,9 @@ const ERRORS = {
   UNCAUGHT_EXCEPTION: 'Uncaught Exception',
 };
 
+const DEFAULT_PORT = 4020;
+
 module.exports = {
   ERRORS,
+  DEFAULT_PORT,
 };
