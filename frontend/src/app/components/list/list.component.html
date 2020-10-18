@@ -3,3 +3,9 @@
 <input #postInput type="text" [ngClass]="{invisible:!isInput}" [formControl]="text">
 
 <button (click)="addPost()">Добавить</button>
+
+<footer>
+  <a [href]="backendService.getSwaggerAddress()">
+    Link to swagger
+  </a>
+</footer>

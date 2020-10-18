@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
+import { BackendService } from '../../services/backend.service';
 import { IPost } from '../../models/post.model';
 
 @Component({
@@ -16,7 +17,7 @@ export class ListComponent implements OnInit {
   public isInput = false;
   public text = new FormControl('');
 
-  constructor(public renderer: Renderer2) { }
+  constructor(public renderer: Renderer2, public backendService: BackendService) { }
 
   ngOnInit(): void {
   }
