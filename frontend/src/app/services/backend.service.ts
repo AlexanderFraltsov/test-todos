@@ -1,7 +1,8 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map  } from 'rxjs/operators';
+
 import { BACKEND_PATH, SERVER_PATHS } from '../../../constants/constants';
 import { IPost } from '../models/post.model';
 
@@ -32,7 +33,13 @@ export class BackendService {
   public addPost(text: string): Observable<IPost> {
     const body = { text };
     return this.http
-      .post<IPost>(this.postsPath, body);
+      .post<IPost>(this.postsPath, body)
+      .pipe(
+        catchError((err: HttpErrorResponse) => {
+          console.error(err.status, err.message, body);
+          return throwError('Something bad happened; please try again later.');
+        })
+      );
   }
 
   public getSwaggerAddress(): string {

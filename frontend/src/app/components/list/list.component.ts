@@ -1,6 +1,13 @@
-import { Observable } from 'rxjs';
-import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+  Renderer2
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { BackendService } from '../../services/backend.service';
 import { IPost } from '../../models/post.model';
@@ -10,22 +17,34 @@ import { IPost } from '../../models/post.model';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, OnDestroy {
   @ViewChild('postInput')
   private input: ElementRef;
 
-  public posts$: Observable<IPost[]>;
   public isInput = false;
+  public posts: IPost[] = [];
+  public subscriptions: Subscription[] = [];
+
   public text = new FormControl('');
 
-  constructor(public renderer: Renderer2, public backendService: BackendService) { }
+  constructor(
+    private renderer: Renderer2,
+    public backendService: BackendService
+  ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.getPosts();
   }
 
+  public ngOnDestroy(): void {
+    this.subscriptions = [];
+  }
+
   private getPosts(): void {
-    this.posts$ = this.backendService.getPosts();
+    this.subscriptions.push(
+      this.backendService
+        .getPosts()
+        .subscribe(posts => this.posts = posts));
   }
 
   public addPost = (): void => {
@@ -35,11 +54,13 @@ export class ListComponent implements OnInit {
       () => this.renderer.selectRootElement(this.input.nativeElement).focus()
     );
     const { value } = this.text;
-    if (!value) {
-      console.log('add you text');
-    } else {
-      console.log(value);
-      this.backendService.addPost(value);
+    if (value) {
+      this.subscriptions
+        .push(
+          this.backendService
+            .addPost(value)
+            .subscribe(post => this.posts.push(post)));
+
       this.text.setValue('');
     }
   }
