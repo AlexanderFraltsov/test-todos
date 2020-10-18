@@ -22,22 +22,27 @@ $footer-opacity: .5;
 p, input, button {
   box-sizing: border-box;
   width: $width;
-  min-height: $min-height;
   min-width: $min-width;
   max-width: $max-width;
-  margin: $margin;
-  padding: $padding;
   font-size: large;
   border-radius: $border-radius;
 }
 
 input, button {
-  border: $border;
   outline: none;
-
   &:hover, &:focus {
     border-color: $border-color-focus;
   }
+}
+
+button, p {
+  min-height: $min-height;
+  margin: $margin;
+  padding: $padding;
+}
+
+button {
+  border: $border;
 }
 
 p {
@@ -64,8 +69,4 @@ footer {
       font-weight: bold;
     }
   }
-}
-
-.invisible {
-  display: none;
 }

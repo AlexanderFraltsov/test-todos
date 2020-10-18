@@ -7,6 +7,7 @@ import {
   Renderer2
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { trigger, transition, animate, style, state } from '@angular/animations';
 import { Subscription } from 'rxjs';
 
 import { BackendService } from '../../services/backend.service';
@@ -14,6 +15,28 @@ import { IPost } from '../../models/post.model';
 
 @Component({
   selector: 'app-list',
+  animations: [
+    trigger('openInput', [
+      state('closed', style({
+        height: '0',
+        margin: '0',
+        padding: '0',
+        border: '0',
+      })),
+      state('open', style({
+        height: '4rem',
+        margin: '.5rem 0',
+        padding: '.5rem',
+        border: '.15rem black solid'
+      })),
+      transition('closed => open', [
+        animate('0.5s')
+      ]),
+      transition('open => closed', [
+        animate('0.2s')
+      ]),
+    ]),
+  ],
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
