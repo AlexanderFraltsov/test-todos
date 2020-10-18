@@ -35,7 +35,7 @@ in your browser OpenAPI documentation by typing http://localhost:4020/doc/.
 |------------------------------------------|------------|------------|----------|
 | added simple angular app version | 2h 05m | 14:25| 16:30 |
 | added service | 40m | 17:00 | 17:40 |
-| added post method | 40m | 18:50 | 19:15 |
+| added post method | 25m | 18:50 | 19:15 |
 | full functionality implemented | 1h | 19:15 | 20:15 |
 | animations added | 30m | 20:30 | 21:00 |
-| Total | 4h 55m | - | - |
+| Total | 4h 40m | - | - |
