@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+p, input, button {
+  box-sizing: border-box;
+  height: 4rem;
+  width: 80vw;
+  min-width: 300px;
+  max-width: 600px;
+  margin: .5rem 0;
+  padding: 0.5rem;
+  font-size: large;
+}
+
+input, button {
+  border: .15rem black solid;
+  border-radius: .5rem;
+  outline: none;
+
+  &:hover, &:focus {
+    border-color: yellowgreen;
+  }
+}
+
+.invisible {
+  display: none;
+}
